@@ -26,10 +26,10 @@ const getAllTodos = () => {
   });
 };
 
-const deleteTodo = (_id, clientId) => {
+const deleteTodo = (_id, ) => {
   return new Promise((resolve, reject) => {
     try {
-      TodoSchema.findOneAndDelete({ _id, clientId })
+      TodoSchema.findOneAndDelete({ _id })
         .then((data) => resolve(data))
         .catch((error) =>
           reject("Error at TodoSchema.findOneAndDelete / " + error)

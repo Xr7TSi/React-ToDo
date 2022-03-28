@@ -8,30 +8,8 @@ const {
 const { userAuthorization } = require("../middleware/authorization.middleware");
 
 
-
-// // create new todo
-// router.post("/", userAuthorization, async (req, res) => {
-//   try {
-//     const { text } = req.body;
-
-//     // req.userId is a property of the request header
-//     const userId = req.userId;
-
-//     const todoObj = {
-//       clientId: userId,
-//       text,
-//       isCompleted: false,
-//     };
-//     const result = await insertTodo(todoObj);
-//     if (result._id) {
-//       res.json({ status: "success", message: "Todo has been created" });
-//     }
-//   } catch (error) {
-//     console.log("Error at router.post / " + error);
-//   }
-// });
-
 // create new todo
+// this is the API/todo/ endpoint
 router.post("/", async (req, res) => {
   try {
     const { text } = req.body;
@@ -51,7 +29,7 @@ router.post("/", async (req, res) => {
 
 // get all todos
 // this is the API/todo/all-todos route
-router.get("/all-todos", userAuthorization, async (req, res) => {
+router.get("/all-todos",  async (req, res) => {
   try {
     const result = await getAllTodos();
 
@@ -64,15 +42,12 @@ router.get("/all-todos", userAuthorization, async (req, res) => {
 
 // delete a todo by id
 // this is the API/todo/:todoId route
-router.delete("/:_Id", userAuthorization, async (req, res) => {
+router.delete("/:_Id", async (req, res) => {
   try {
     // _id is an individual ticket id in mongodb
     const _id = req.params._Id;
 
-    const clientId = req.userId;
-
-    // the clientId parameter ensure only the client can make this change
-    const result = await deleteTodo(_id, clientId);
+    const result = await deleteTodo(_id);
 
       return res.json({
         status: "success",
